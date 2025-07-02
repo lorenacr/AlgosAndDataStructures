@@ -1,12 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgosAndDataStructures", "AlgosAndDataStructures.csproj", "{A0F33BD6-4889-47F8-82DA-7B58E63DF43A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "etc", "etc", "{71FFD8D5-4309-41A3-852E-0F7619C89411}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{784F3EF0-F671-4DAD-9BD8-450FC72D6DAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgosAndDataStructures", "src\AlgosAndDataStructures\AlgosAndDataStructures.csproj", "{A0F33BD6-4889-47F8-82DA-7B58E63DF43A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B25232EB-025D-448C-A6CC-772CB88DD64C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgosAndDataStructures.UnitTest", "test\AlgosAndDataStructures.UnitTest\AlgosAndDataStructures.UnitTest.csproj", "{D50CA48D-A90A-447D-A3EC-7C785577B0E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +24,13 @@ Global
 		{A0F33BD6-4889-47F8-82DA-7B58E63DF43A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0F33BD6-4889-47F8-82DA-7B58E63DF43A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0F33BD6-4889-47F8-82DA-7B58E63DF43A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D50CA48D-A90A-447D-A3EC-7C785577B0E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D50CA48D-A90A-447D-A3EC-7C785577B0E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D50CA48D-A90A-447D-A3EC-7C785577B0E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D50CA48D-A90A-447D-A3EC-7C785577B0E5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A0F33BD6-4889-47F8-82DA-7B58E63DF43A} = {784F3EF0-F671-4DAD-9BD8-450FC72D6DAE}
+		{D50CA48D-A90A-447D-A3EC-7C785577B0E5} = {B25232EB-025D-448C-A6CC-772CB88DD64C}
 	EndGlobalSection
 EndGlobal

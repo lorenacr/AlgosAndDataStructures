@@ -283,10 +283,7 @@ public class LinkedList<T> : ICollection<T>
                 {
                     RemoveHead();
                 }
-                
-                previous = current;
-                current.Next = current.Next.Next;
-                
+
                 return true;
             }
             
