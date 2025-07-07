@@ -1,5 +1,6 @@
 ﻿using System;
 using AlgosAndDataStructures.LinkedLists;
+using AlgosAndDataStructures.Stacks;
 
 namespace AlgosAndDataStructures;
 
@@ -8,10 +9,36 @@ class Program
     static void Main(string[] args)
     {
         TestingTheLinkedList();
+        
+        TestingTheStack();
+        
+        Console.ReadKey();
     }
 
-    public static void TestingTheLinkedList()
+    private static void TestingTheStack()
     {
+        Console.WriteLine("Starting Stack tests:");
+        
+        var stack = new Stack<int>();
+        
+        stack.Push(10);
+        stack.Push(20);
+        stack.Push(30);
+        
+        // Should print 30
+        Console.WriteLine("Peek: " + stack.Peek());
+
+        // Should print 30
+        Console.WriteLine("First pop: " + stack.Pop());
+        
+        // Should print 20
+        Console.WriteLine("Last pop: " + stack.Pop());
+    }
+    
+    private static void TestingTheLinkedList()
+    {
+        Console.WriteLine("Starting Linked List tests:");
+        
         var linkedList = new LinkedList<int>();
         
         linkedList.AddTail(10);
@@ -29,7 +56,5 @@ class Program
         
         // Should print: 5 -> 10 -> 30 -> NULL
         Console.WriteLine("After deleting 20: " + linkedList.ConvertToString());
-
-        Console.ReadKey();
     }
 }
