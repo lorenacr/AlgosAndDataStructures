@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
-namespace AlgosAndDataStructures.Stacks;
+namespace AlgosAndDataStructures;
 
 /// <summary>
 /// Last In First Out (LIFO) collection.
@@ -22,86 +23,95 @@ public class Stack<T> : IEnumerable<T>
     private int _size;
 
     /// <summary>
-    /// Adds an item to the stack.
+    /// Returns how many items are in the stack.
     /// </summary>
-    /// <param name="item"></param>
+    public int Count => this._size;
+    
+    /// <summary>
+    /// Adds an item to the stack.
+    /// Complexity: O(1)
+    /// </summary>
+    /// <param name="item">The item to be added to the stack.</param>
     public void Push(T item)
     {
-        if (_size == _array.Length)
+        if (this._size == this._array.Length)
         {
-            var newLength =  _array.Length * 2;
+            var newLength =  this._array.Length * 2;
             
             var newArray = new T[newLength];
-            _array.CopyTo(newArray, 0);
-            _array = newArray;
+            this._array.CopyTo(newArray, 0);
+            this._array = newArray;
         }
         
-        _array[_size] = item;
-        _size++;
+        this._array[_size] = item;
+        this._size++;
     }
 
     /// <summary>
     /// Removes and returns the last item in the stack.
+    /// Complexity: O(1)
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The last item in the stack.</returns>
     public T Pop()
     {
-        if (_size == 0)
+        if (this._size == 0)
         {
             throw new InvalidOperationException("Stack is empty.");
         }
         
         var item = this._array[--_size];
-        this._array[_size] = default!;
+        
+        if (RuntimeHelpers.IsReferenceOrContainsReferences<T>())
+            this._array[_size] = default!;
+        
         return item;
     }
 
     /// <summary>
-    /// Returns the last item from the stack without removing it.
+    /// Returns the last item in the stack without removing it.
+    /// Complexity: O(1)
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The last item in the stack.</returns>
     public T Peek()
     {
-        if (_size == 0)
+        if (this._size == 0)
         {
             throw new InvalidOperationException("Stack is empty.");
         }
         
-        return _array[_size - 1];
+        return this._array[_size - 1];
     }
 
     /// <summary>
-    /// Returns how many items are in the stack.
-    /// </summary>
-    public int Count => _size;
-
-    /// <summary>
     /// Clears the stack.
+    /// Complexity: O(n)
     /// </summary>
     public void Clear()
     {
         Array.Clear(this._array, 0, this._array.Length);
-        _size = 0;
+        this._size = 0;
     }
 
     /// <summary>
     /// Enumerates each item from the stack in LIFO order, maintaining
-    /// the stack unaltered. 
+    /// the stack unaltered.
+    ///  Complexity: O(n)
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The element in the collection at the current position of the enumerator.</returns>
     public IEnumerator<T> GetEnumerator()
     {
-        for (int i = _size - 1; i >= 0; i--)
+        for (var i = this._size - 1; i >= 0; i--)
         {
-            yield return _array[i];
+            yield return this._array[i];
         }
     }
 
     /// <summary>
     /// Enumerates each item from the stack in LIFO order, maintaining
-    /// the stack unaltered. 
+    /// the stack unaltered.
+    ///  Complexity: O(n)
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The element in the collection at the current position of the enumerator.</returns>
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();

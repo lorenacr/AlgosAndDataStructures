@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace AlgosAndDataStructures.LinkedLists;
+namespace AlgosAndDataStructures;
 
 /// <summary>
 /// A node in the LinkedList.
@@ -49,9 +49,9 @@ public class LinkedList<T> : ICollection<T>
     /// </summary>
     private LinkedListNode<T> _tail { get; set; }
     
-    public T Head => _head.Value;
+    public T Head => this._head.Value;
 
-    public T Tail => _tail.Value;
+    public T Tail => this._tail.Value;
     
     /// <summary>
     /// Number of items in the list.
@@ -62,31 +62,6 @@ public class LinkedList<T> : ICollection<T>
     /// Whether the list is readonly or not.
     /// </summary>
     public bool IsReadOnly => false;
-    
-    /// <summary>
-    /// Enumerates over the linked list values.
-    /// Complexity: O(n)
-    /// </summary>
-    /// <returns>The enumerator.</returns>
-    public IEnumerator<T> GetEnumerator()
-    {
-        var current = _head;
-        while (current != null)
-        {
-            yield return current.Value;
-            current = current.Next;
-        }
-    }
-
-    /// <summary>
-    /// Enumerates over the linked list values.
-    /// Complexity: O(n)
-    /// </summary>
-    /// <returns>The enumerator.</returns>
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
 
     /// <summary>
     /// Add item to the start of the linked list.
@@ -96,19 +71,19 @@ public class LinkedList<T> : ICollection<T>
     public void AddHead(T item)
     {
         // Saves the old head to set reference.
-        var oldHead = _head;
+        var oldHead = this._head;
         
         // Point head to new item and sets next to old head.
-        _head = new LinkedListNode<T>(item)
+        this._head = new LinkedListNode<T>(item)
         {
             Next = oldHead
         };
 
-        Count++;
+        this.Count++;
 
-        if (Count == 1)
+        if (this.Count == 1)
         {
-            _tail = _head;
+            this._tail = this._head;
         }
     }
 
@@ -124,18 +99,18 @@ public class LinkedList<T> : ICollection<T>
         // If the linked list is empty, the item is head and tail.
         if (Count == 0)
         {
-            _head = newTailNode;
+            this._head = newTailNode;
         }
         // Points the reference of the current tail to the new item.
         else
         {
-            _tail.Next = newTailNode;
+            this._tail.Next = newTailNode;
         }
         
         // Changes the tail to be the new item.
-        _tail = newTailNode;
+        this._tail = newTailNode;
 
-        Count++;
+        this.Count++;
     }
     
     /// <summary>
@@ -145,7 +120,7 @@ public class LinkedList<T> : ICollection<T>
     /// <param name="item">The item to be added.</param>
     public void Add(T item)
     {
-        AddHead(item);
+        this.AddHead(item);
     }
 
     /// <summary>
@@ -154,9 +129,17 @@ public class LinkedList<T> : ICollection<T>
     /// </summary>
     public void Clear()
     {
-        _head = null;
-        _tail = null;
-        Count = 0;
+        var current = this._head;
+        while (current != null)
+        {
+            var temp = current;
+            current = current.Next;
+            temp = default;
+        }
+        
+        this._head = null;
+        this._tail = null;
+        this.Count = 0;
     }
 
     /// <summary>
@@ -167,7 +150,7 @@ public class LinkedList<T> : ICollection<T>
     /// <returns>True if the item is found. Otherwise, false.</returns>
     public bool Contains(T item)
     {
-        var current = _head;
+        var current = this._head;
 
         while (current != null)
         {
@@ -188,7 +171,7 @@ public class LinkedList<T> : ICollection<T>
     /// <param name="arrayIndex">The index of the array to start copying at.</param>
     public void CopyTo(T[] array, int arrayIndex)
     {
-        var current = _head;
+        var current = this._head;
         while (current != null)
         {
             array[arrayIndex++] = current.Value;
@@ -203,20 +186,20 @@ public class LinkedList<T> : ICollection<T>
     /// <returns>True if removed, false otherwise.</returns>
     public bool RemoveHead()
     {
-        if (Count == 0) 
+        if (this.Count == 0) 
             return true;
 
         if (Count == 1)
         {
-            _head = null;
-            _tail = null;
+            this._head = null;
+            this._tail = null;
 
             return true;
         }
         
-        _head = _head.Next;
+        this._head = this._head.Next;
 
-        Count--;
+        this.Count--;
 
         return true;
     }
@@ -228,27 +211,27 @@ public class LinkedList<T> : ICollection<T>
     /// <returns>True if removed, false otherwise.</returns>
     public bool RemoveTail()
     {
-        if (Count == 0)
+        if (this.Count == 0)
             return true;
         
-        if (Count == 1)
+        if (this.Count == 1)
         {
-            _head = null;
-            _tail = null;
+            this._head = null;
+            this._tail = null;
 
             return true;
         }
 
-        var current = _head;
-        while (current.Next != _tail)
+        var current = this._head;
+        while (current.Next != this._tail)
         {
             current = current.Next;
         }
         
         current.Next = null;
-        _tail = current;
+        this._tail = current;
         
-        Count--;
+        this.Count--;
         
         return true;
     }
@@ -262,7 +245,7 @@ public class LinkedList<T> : ICollection<T>
     public bool Remove(T item)
     {
         LinkedListNode<T> previous = null;
-        var current = _head;
+        var current = this._head;
         
         while (current != null)
         {
@@ -275,9 +258,9 @@ public class LinkedList<T> : ICollection<T>
                     
                     // If the current node is the tail node, sets new tail as previous.
                     if (current.Next == null)
-                        _tail = previous;
+                        this._tail = previous;
 
-                    Count--;
+                    this.Count--;
                 }
                 else
                 {
@@ -295,6 +278,31 @@ public class LinkedList<T> : ICollection<T>
     }
     
     /// <summary>
+    /// Enumerates over the linked list values.
+    /// Complexity: O(n)
+    /// </summary>
+    /// <returns>The element in the collection at the current position of the enumerator.</returns>
+    public IEnumerator<T> GetEnumerator()
+    {
+        var current = this._head;
+        while (current != null)
+        {
+            yield return current.Value;
+            current = current.Next;
+        }
+    }
+
+    /// <summary>
+    /// Enumerates over the linked list values.
+    /// Complexity: O(n)
+    /// </summary>
+    /// <returns>The element in the collection at the current position of the enumerator.</returns>
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+    
+    /// <summary>
     /// Converts the list as string.
     /// Method used for debugging purposes only.
     /// Complexity: O(n²) because of +=.
@@ -303,7 +311,7 @@ public class LinkedList<T> : ICollection<T>
     {
         var listAsString = string.Empty;
         
-        var current = _head;
+        var current = this._head;
         while (current != null)
         {
             listAsString += current.Value + " -> ";

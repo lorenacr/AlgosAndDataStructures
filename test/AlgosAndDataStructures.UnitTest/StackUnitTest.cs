@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using AlgosAndDataStructures.Stacks;
 using Xunit;
 
 namespace AlgosAndDataStructures.UnitTest;
 
 public class StackUnitTest
 {
-    private Stacks.Stack<int> _stack;
+    private Stack<int> _stack;
 
     public StackUnitTest()
     {
-        this._stack = new Stacks.Stack<int>();
+        this._stack = new Stack<int>();
 
         for (int i = 0; i < 100; i++)
         {
