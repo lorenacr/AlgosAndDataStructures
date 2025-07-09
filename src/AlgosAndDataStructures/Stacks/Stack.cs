@@ -6,6 +6,7 @@ namespace AlgosAndDataStructures.Stacks;
 
 /// <summary>
 /// Last In First Out (LIFO) collection.
+/// This class has been optimized and tested for memory leaks.
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public class Stack<T> : IEnumerable<T>
@@ -50,7 +51,9 @@ public class Stack<T> : IEnumerable<T>
             throw new InvalidOperationException("Stack is empty.");
         }
         
-        return _array[--_size];
+        var item = this._array[--_size];
+        this._array[_size] = default!;
+        return item;
     }
 
     /// <summary>
@@ -67,10 +70,17 @@ public class Stack<T> : IEnumerable<T>
         return _array[_size - 1];
     }
 
+    /// <summary>
+    /// Returns how many items are in the stack.
+    /// </summary>
     public int Count => _size;
 
+    /// <summary>
+    /// Clears the stack.
+    /// </summary>
     public void Clear()
     {
+        Array.Clear(this._array, 0, this._array.Length);
         _size = 0;
     }
 

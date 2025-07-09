@@ -33,6 +33,8 @@ class Program
         
         // Should print 20
         Console.WriteLine("Last pop: " + stack.Pop());
+        
+        Console.WriteLine(string.Empty);
     }
     
     private static void TestingTheLinkedList()
@@ -56,5 +58,7 @@ class Program
         
         // Should print: 5 -> 10 -> 30 -> NULL
         Console.WriteLine("After deleting 20: " + linkedList.ConvertToString());
+        
+        Console.WriteLine(string.Empty);
     }
 }
