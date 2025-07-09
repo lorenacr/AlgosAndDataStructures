@@ -18,17 +18,26 @@ public class Queue<T> : IEnumerable<T>
     private T[] _array;
 
     /// <summary>
-    /// The index of the first item in the queue or null if the queue is empty. 
+    /// The index of the first item in the queue. 
     /// </summary>
     private int _head;
 
     /// <summary>
-    /// The index of the last item in the queue or null if the queue is empty. 
+    /// The index of the last item in the queue.
+    /// It starts with -1 to track the tail with the maximum performance.  
     /// </summary>
-    private int _tail;
+    private int _tail = -1;
     
     private int _size;
 
+    /// <summary>
+    /// Basic constructor.
+    /// </summary>
+    public Queue()
+    {
+        this._array = new T[1];
+    }
+    
     /// <summary>
     /// Constructor tha initializes queue from an existing collection.
     /// </summary>
@@ -62,7 +71,9 @@ public class Queue<T> : IEnumerable<T>
             this._array = newArray;
         }
 
-        this._array[this._tail++] = item;
+        // If the tail didn't start with -1, we would need to check the count every time to set the tail right, 
+        // which would consume computational resources unnecessarily.
+        this._array[++this._tail] = item;
         this._size++;
     }
 
@@ -79,8 +90,9 @@ public class Queue<T> : IEnumerable<T>
         var item = this._array[this._head];
         
         if (RuntimeHelpers.IsReferenceOrContainsReferences<T>())
-            this._array[this._head++] = default!;
-        
+            this._array[this._head] = default!;
+
+        this._head++;
         this._size++;
         return item;
     }
