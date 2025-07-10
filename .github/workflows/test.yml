@@ -20,8 +20,8 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-restore --collect "XPlat Code Coverage" 
+      run: dotnet test --no-restore --no-build --collect "XPlat Code Coverage" 
     - name: Upload coverage
       uses: codecov/codecov-action@v3
       with:
-        files: ./**/coverage.cobertura.xml
+        flags: unittests
