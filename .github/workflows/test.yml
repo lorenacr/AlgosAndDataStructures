@@ -43,7 +43,7 @@ jobs:
         -reporttypes:HtmlInline;Badges
 
     - name: Upload badge artifact (optional)
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: coverage-badge
         path: coveragereport/badges/badge.svg
