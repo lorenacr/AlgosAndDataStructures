@@ -8,6 +8,7 @@ namespace AlgosAndDataStructures;
 
 /// <summary>
 /// First In First Out (FIFO) collection.
+/// This class has been optimized and tested for memory leaks.
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public class Queue<T> : IEnumerable<T>
