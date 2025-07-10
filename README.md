@@ -1,6 +1,7 @@
 # AlgosAndDataStructures 
 ![Test Status](https://github.com/lorenacr/AlgosAndDataStructures/actions/workflows/test.yml/badge.svg)
-[![Coverage](https://img.shields.io/codecov/c/github/seu-usuario/seu-repo)](https://codecov.io/gh/lorenacr/AlgosAndDataStructures)
+![Coverage](https://raw.githubusercontent.com/lorenacr/AlgosAndDataStructures/main/coveragereport/badges/badge.svg)
+
 
 This project will be used to exercise concepts about algorithms and data structure such as:
 - Stacks
