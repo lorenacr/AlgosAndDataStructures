@@ -1,4 +1,4 @@
-name: .NET Tests
+name: Unit Tests
 
 on:
   push:
@@ -20,15 +20,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-restore --collect "XPlat Code Coverage" --logger "trx;LogFileName=test-results.trx"
-    - name: Publish results
-      uses: dorny/test-reporter@v1
-      if: always()
-      with:
-        name: Unit Tests
-        path: '**/TestResults/*.trx'
-        reporter: dotnet-trx
-
+      run: dotnet test --no-restore --collect "XPlat Code Coverage" 
     - name: Upload coverage
       uses: codecov/codecov-action@v3
       with:
