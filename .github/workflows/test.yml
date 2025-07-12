@@ -55,11 +55,10 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: coverage-report
-        path: coveragereport/
+        path: ./CoverageResults/
 
     - name: Upload test results
       uses: actions/upload-artifact@v4
-      if: always()
       with:
         name: test-results
-        path: TestResults/
+        path: ./**/*.trx
