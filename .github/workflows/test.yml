@@ -29,30 +29,23 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
 
-    - name: Run tests with coverage
+     - name: Run tests with coverage
       run: >
         dotnet test ./test/AlgosAndDataStructures.UnitTest/AlgosAndDataStructures.UnitTest.csproj
         --no-build
         --logger trx
         --results-directory ./TestResults/
-        /p:CollectCoverage=true
-        /p:CoverletOutput=./TestResults/
-        /p:CoverletOutputFormat=cobertura
-        /p:MergeWith=./TestResults/coverage.json
+        --collect:"XPlat Code Coverage"
+        --settings coverlet.runsettings
 
-    - name: List coverage files (debug)
-      run: |
-        echo "Files in TestResults:"
-        find ./TestResults -name "*.xml" -o -name "*.cobertura*" | head -20
-        echo "All files in test directory:"
-        find ./test -name "*.xml" -o -name "*.cobertura*" | head -20
-
-    - name: Generate coverage report
-      run: >
-        reportgenerator
-        -reports:./TestResults/coverage.cobertura.xml
-        -targetdir:coveragereport
-        -reporttypes:HtmlInline;Badges
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        directory: ./TestResults/
+        files: '**/*.cobertura.xml'
+        fail_ci_if_error: true
+        verbose: true
 
     - name: Upload coverage report
       uses: actions/upload-artifact@v4
