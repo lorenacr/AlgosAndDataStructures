@@ -20,16 +20,13 @@ jobs:
           8.0.x
           9.0.x
 
-    - name: Install ReportGenerator tool
-      run: dotnet tool install -g dotnet-reportgenerator-globaltool
-
     - name: Restore
       run: dotnet restore
 
     - name: Build
       run: dotnet build --no-restore
 
-     - name: Run tests with coverage
+    - name: Run tests with coverage
       run: >
         dotnet test ./test/AlgosAndDataStructures.UnitTest/AlgosAndDataStructures.UnitTest.csproj
         --no-build
