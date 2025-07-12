@@ -42,7 +42,11 @@ public class QueueUnitTest
     public void Dequeue_ShouldGetFirstItemAndRemoveIt()
     {
         // Arrange
-        var expected = 100;
+        var expected = 2;
+        this._queue.Clear();
+        this._queue.Enqueue(expected);
+        this._queue.Enqueue(4);
+        this._queue.Enqueue(6);
         
         // Act
         var actual = this._queue.Dequeue();
@@ -117,7 +121,7 @@ public class QueueUnitTest
     [InlineData(10, true)]
     [InlineData(40, true)]
     [InlineData(80, true)]
-    [InlineData(100, false)]
+    [InlineData(100, true)]
     public void Contains_ShouldReturnCorrectly(int item, bool expected)
     {
         // Act

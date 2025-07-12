@@ -36,7 +36,7 @@ public class Queue<T> : IEnumerable<T>
     /// </summary>
     public Queue()
     {
-        this._array = new T[1];
+        this._array = new T[4];
     }
     
     /// <summary>
@@ -49,6 +49,16 @@ public class Queue<T> : IEnumerable<T>
         
         this._array = collection.ToArray();
         this._size = this._array.Length;
+        
+        if (this._size > 0)
+        {
+            this._tail = this._size - 1;
+        }
+        else
+        {
+            this._array = new T[4];
+            this._tail = -1;
+        }
     }
 
     /// <summary>
@@ -94,7 +104,7 @@ public class Queue<T> : IEnumerable<T>
             this._array[this._head] = default!;
 
         this._head++;
-        this._size++;
+        this._size--;
         return item;
     }
     
@@ -117,8 +127,12 @@ public class Queue<T> : IEnumerable<T>
     /// </summary>
     public void Clear()
     {
-        Array.Clear(this._array, 0, this._array.Length);
+        if (RuntimeHelpers.IsReferenceOrContainsReferences<T>())
+            Array.Clear(this._array, 0, this._array.Length);
+        
         this._size = 0;
+        this._head = 0;
+        this._tail = -1;
     }
     
     /// <summary>

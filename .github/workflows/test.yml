@@ -27,10 +27,15 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
 
+    - name: Install ReportGenerator tool
+      run: dotnet tool install -g dotnet-reportgenerator-globaltool
+
     - name: Run tests with coverage
       run: >
         dotnet test ./test/AlgosAndDataStructures.UnitTest/AlgosAndDataStructures.UnitTest.csproj
         --no-build
+        --logger trx
+        --results-directory ./TestResults/
         /p:CollectCoverage=true
         /p:CoverletOutput=./TestResults/coverage/
         /p:CoverletOutputFormat=cobertura
@@ -42,8 +47,15 @@ jobs:
         -targetdir:coveragereport
         -reporttypes:HtmlInline;Badges
 
-    - name: Upload badge artifact (optional)
+    - name: Upload coverage report
       uses: actions/upload-artifact@v4
       with:
-        name: coverage-badge
-        path: coveragereport/badges/badge.svg
+        name: coverage-report
+        path: coveragereport/
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-results
+        path: TestResults/
