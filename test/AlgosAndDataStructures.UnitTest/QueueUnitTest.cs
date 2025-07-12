@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Xunit;
@@ -136,6 +137,21 @@ public class QueueUnitTest
     {
         // Arrange
         var expected = 10;
+        
+        // Act
+        var actual = this._queue.Count;
+        
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+    
+    [Fact]
+    public void Count_ShouldReturnZeroWhenListIsEmpty()
+    {
+        // Arrange
+        var expected = 0;
+        this._queue.Clear();
+        this._queue = new Queue<int>(new List<int>());
         
         // Act
         var actual = this._queue.Count;

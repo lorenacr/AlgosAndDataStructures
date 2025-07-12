@@ -3,7 +3,6 @@ using Xunit;
 
 namespace AlgosAndDataStructures.UnitTest;
 
-[ExcludeFromCodeCoverage]
 public class LinkedListUnitTest
 {
     private LinkedList<int> _linkedList;

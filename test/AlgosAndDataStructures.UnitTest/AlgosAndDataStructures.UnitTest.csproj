@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <LangVersion>latestmajor</LangVersion>
         <TargetFramework>net9.0</TargetFramework>
+        <ExcludeFromCodeCoverage>true</ExcludeFromCodeCoverage>
     </PropertyGroup>
 
     <ItemGroup>
