@@ -1,7 +1,9 @@
-﻿using Xunit;
+﻿using System.Diagnostics.CodeAnalysis;
+using Xunit;
 
 namespace AlgosAndDataStructures.UnitTest;
 
+[ExcludeFromCodeCoverage]
 public class LinkedListUnitTest
 {
     private LinkedList<int> _linkedList;
@@ -9,6 +11,13 @@ public class LinkedListUnitTest
     public LinkedListUnitTest()
     {
         this._linkedList = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+    }
+    
+    [Fact]
+    public void IsReadonly_ShouldReturnFalse()
+    {
+        // Act / Assert
+        Assert.False(this._linkedList.IsReadOnly);
     }
     
     [Fact]
@@ -34,6 +43,22 @@ public class LinkedListUnitTest
         this._linkedList.AddTail(expected);
         
         // Assert
+        Assert.Equal(this._linkedList.Tail, expected);
+    }
+    
+    [Fact]
+    public void AddTail_ShouldAddItemToTheTailWhenListIsEmpty()
+    {
+        // Arrange
+        var expected = 5;
+        this._linkedList.Clear();
+        this._linkedList.AddTail(expected);
+        
+        // Act
+        this._linkedList.AddTail(expected);
+        
+        // Assert
+        Assert.Equal(this._linkedList.Head, expected);
         Assert.Equal(this._linkedList.Tail, expected);
     }
     
@@ -117,10 +142,23 @@ public class LinkedListUnitTest
     }
     
     [Fact]
-    public void RemoveHead_ShouldReturnTrueIfItemIsNull()
+    public void RemoveHead_WhenOnlyOneItem_ShouldReturnTrue()
     {
         // Arrange
         this._linkedList = [];
+        
+        // Act
+        var actual = this._linkedList.RemoveHead();
+        
+        // Assert
+        Assert.True(actual);
+    }
+    
+    [Fact]
+    public void RemoveHead_ShouldReturnTrueWhenOnlyOneItemInList()
+    {
+        // Arrange
+        this._linkedList = [1];
         
         // Act
         var actual = this._linkedList.RemoveHead();
@@ -143,7 +181,20 @@ public class LinkedListUnitTest
     }
 
     [Fact]
-    public void RemoveTail_ShouldReturnTrueIfItemIsNull()
+    public void RemoveTail_ShouldReturnTrueWhenOnlyOneItemInList()
+    {
+        // Arrange
+        this._linkedList = [1];
+        
+        // Act
+        var actual = this._linkedList.RemoveTail();
+        
+        // Assert
+        Assert.True(actual);
+    }
+    
+    [Fact]
+    public void RemoveTail_ShouldReturnTrueWhenListIsEmpty()
     {
         // Arrange
         this._linkedList = [];
@@ -166,5 +217,18 @@ public class LinkedListUnitTest
         
         // Assert
         Assert.DoesNotContain(item, this._linkedList);
+    }
+    
+    [Fact]
+    public void Remove_ShouldReturnFalseWhenListIsEmpty()
+    {
+        // Arrange
+        this._linkedList = [];
+        
+        // Act
+        var actual = this._linkedList.Remove(5);
+        
+        // Assert
+        Assert.False(actual);
     }
 }

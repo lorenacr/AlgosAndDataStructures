@@ -74,17 +74,12 @@ public class LinkedList<T> : ICollection<T>
         var oldHead = this._head;
         
         // Point head to new item and sets next to old head.
-        this._head = new LinkedListNode<T>(item)
-        {
-            Next = oldHead
-        };
+        this._head = new LinkedListNode<T>(item) { Next = oldHead };
 
         this.Count++;
 
         if (this.Count == 1)
-        {
             this._tail = this._head;
-        }
     }
 
     /// <summary>
