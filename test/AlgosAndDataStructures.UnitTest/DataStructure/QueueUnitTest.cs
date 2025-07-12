@@ -4,15 +4,15 @@ using System.Diagnostics;
 using System.Linq;
 using Xunit;
 
-namespace AlgosAndDataStructures.UnitTest;
+namespace AlgosAndDataStructures.UnitTest.DataStructure;
 
 public class QueueUnitTest
 {
-    private Queue<int> _queue;
+    private DataStructures.Queue<int> _queue;
 
     public QueueUnitTest()
     {
-        this._queue = new Queue<int>([10,20,30,40,50,60,70,80,90,100]);
+        this._queue = new DataStructures.Queue<int>([10,20,30,40,50,60,70,80,90,100]);
     }
 
     [Fact]
@@ -98,7 +98,7 @@ public class QueueUnitTest
     public void Clear_ShouldReleaseMemory()
     {
         // Arrange
-        var queue = new Queue<byte[]>();
+        var queue = new DataStructures.Queue<byte[]>();
         var weakRefs = new System.Collections.Generic.List<WeakReference>();
         for (var i = 0; i < 100; i++)
         {
@@ -151,7 +151,7 @@ public class QueueUnitTest
         // Arrange
         var expected = 0;
         this._queue.Clear();
-        this._queue = new Queue<int>(new List<int>());
+        this._queue = new DataStructures.Queue<int>(new List<int>());
         
         // Act
         var actual = this._queue.Count;

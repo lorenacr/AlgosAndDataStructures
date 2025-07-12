@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using AlgosAndDataStructures.DataStructures;
 using Xunit;
 
-namespace AlgosAndDataStructures.UnitTest;
+namespace AlgosAndDataStructures.UnitTest.DataStructure;
 
 public class StackUnitTest
 {

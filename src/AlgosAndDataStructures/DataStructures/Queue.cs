@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace AlgosAndDataStructures;
+namespace AlgosAndDataStructures.DataStructures;
 
 /// <summary>
 /// First In First Out (FIFO) collection.

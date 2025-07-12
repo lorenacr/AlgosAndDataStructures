@@ -1,7 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using AlgosAndDataStructures.DataStructures;
 using Xunit;
 
-namespace AlgosAndDataStructures.UnitTest;
+namespace AlgosAndDataStructures.UnitTest.DataStructure;
 
 public class LinkedListUnitTest
 {

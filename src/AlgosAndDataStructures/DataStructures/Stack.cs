@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace AlgosAndDataStructures;
+namespace AlgosAndDataStructures.DataStructures;
 
 /// <summary>
 /// Last In First Out (LIFO) collection.
