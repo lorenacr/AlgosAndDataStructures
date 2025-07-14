@@ -5,11 +5,11 @@ namespace AlgosAndDataStructures.DataStructures;
 
 /// <summary>
 /// A node in the LinkedList.
-/// As this is a Singly Linked List Node, every node has a reference to the next node,
-/// except the one in the tail. 
+/// As this is a Doubly Linked List Node, every node has a reference to the
+/// previous and the next node.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public class LinkedListNode<T>
+public class DoublyLinkedListNode<T>
 {
     /// <summary>
     /// Every node has a value.
@@ -17,44 +17,48 @@ public class LinkedListNode<T>
     public T Value { get; set; }
     
     /// <summary>
+    /// A reference to the previous node in the linked list.
+    /// If it's the first node, then this is null.
+    /// </summary>
+    public DoublyLinkedListNode<T> Previous { get; set; }
+    
+    /// <summary>
     /// A reference to the next node in the linked list.
     /// If it's the tail node, then this is null.
     /// </summary>
-    public LinkedListNode<T> Next { get; set; }
+    public DoublyLinkedListNode<T> Next { get; set; }
 
     /// <summary>
     /// Basic constructor.
     /// </summary>
-    /// <param name="value"></param>
-    public LinkedListNode(T value)
+    public DoublyLinkedListNode(T value)
     {
         Value = value;
-        Next = null;
     }
 }
 
 /// <summary>
-/// A singly linked list.
+/// A doubly linked list.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public class LinkedList<T> : ICollection<T>
+public class DoublyLinkedList<T> : ICollection<T>
 {
     /// <summary>
-    /// The first node in the list, or null if the list is empty. 
+    /// The first node in the list, or null if the list is empty.
     /// </summary>
-    private LinkedListNode<T> _head { get; set; }
+    private DoublyLinkedListNode<T> _head { get; set; }
     
     /// <summary>
     /// The last node in the list, or null if the list is empty.
     /// </summary>
-    private LinkedListNode<T> _tail { get; set; }
-    
+    private DoublyLinkedListNode<T> _tail { get; set; }
+
     public T Head => this._head.Value;
 
     public T Tail => this._tail.Value;
     
     /// <summary>
-    /// Number of items in the list.
+    /// Number of itemns in the list.
     /// </summary>
     public int Count { get; private set; }
 
@@ -62,10 +66,10 @@ public class LinkedList<T> : ICollection<T>
     /// Whether the list is readonly or not.
     /// </summary>
     public bool IsReadOnly => false;
-
+    
     /// <summary>
     /// Add item to the start of the linked list.
-    /// Complexity: O(1)
+    ///  Complexity: O(1) 
     /// </summary>
     /// <param name="item">The item to be added.</param>
     public void AddHead(T item)
@@ -73,11 +77,11 @@ public class LinkedList<T> : ICollection<T>
         // Saves the old head to set reference.
         var oldHead = this._head;
         
-        // Point head to new item and sets next to old head.
-        this._head = new LinkedListNode<T>(item) { Next = oldHead };
-
+        // Point head to new item and sets next head to old head.
+        this._head = new DoublyLinkedListNode<T>(item) { Next = oldHead };
+        
         this.Count++;
-
+        
         if (this.Count == 1)
             this._tail = this._head;
     }
@@ -89,10 +93,11 @@ public class LinkedList<T> : ICollection<T>
     /// <param name="item">The item to be added.</param>
     public void AddTail(T item)
     {
-        var newTailNode = new LinkedListNode<T>(item);
-        
+        var oldTail = this._tail;
+        var newTailNode = new DoublyLinkedListNode<T>(item) { Previous = oldTail };
+
         // If the linked list is empty, the item is head and tail.
-        if (Count == 0)
+        if (this.Count == 0)
         {
             this._head = newTailNode;
         }
@@ -104,13 +109,13 @@ public class LinkedList<T> : ICollection<T>
         
         // Changes the tail to be the new item.
         this._tail = newTailNode;
-
+        
         this.Count++;
     }
-    
+
     /// <summary>
-    /// Add item to the front of the linked list.
-    /// Complexity: O(1)
+    /// Add item to the start of the linked list.
+    ///  Complexity: O(1) 
     /// </summary>
     /// <param name="item">The item to be added.</param>
     public void Add(T item)
@@ -119,7 +124,7 @@ public class LinkedList<T> : ICollection<T>
     }
 
     /// <summary>
-    /// Removes all the nodes from the linked list.
+    /// Removes all nodes from the linked list.
     /// Complexity: O(n)
     /// </summary>
     public void Clear()
@@ -131,9 +136,10 @@ public class LinkedList<T> : ICollection<T>
             current = current.Next;
             temp = default;
         }
-        
+
         this._head = null;
         this._tail = null;
+
         this.Count = 0;
     }
 
@@ -175,101 +181,69 @@ public class LinkedList<T> : ICollection<T>
     }
 
     /// <summary>
-    /// Removes the head item.
-    /// Complexity: O(1)
+    /// Finds an item in the list.
     /// </summary>
-    /// <returns>True if removed, false otherwise.</returns>
-    public bool RemoveHead()
+    /// <param name="item"></param>
+    /// <returns>The item if it exists in the list, null otherwise.</returns>
+    public DoublyLinkedListNode<T> Find(T item)
     {
-        if (this.Count == 0) 
-            return true;
-
-        if (Count == 1)
-        {
-            this._head = null;
-            this._tail = null;
-
-            return true;
-        }
-        
-        this._head = this._head.Next;
-
-        this.Count--;
-
-        return true;
-    }
-
-    /// <summary>
-    /// Removes the tail item.
-    /// Complexity: O(n)
-    /// </summary>
-    /// <returns>True if removed, false otherwise.</returns>
-    public bool RemoveTail()
-    {
-        if (this.Count == 0)
-            return true;
-        
-        if (this.Count == 1)
-        {
-            this._head = null;
-            this._tail = null;
-
-            return true;
-        }
-
         var current = this._head;
-        while (current.Next != this._tail)
-        {
-            current = current.Next;
-        }
-        
-        current.Next = null;
-        this._tail = current;
-        
-        this.Count--;
-        
-        return true;
-    }
-    
-    /// <summary>
-    /// Removes an item from the linked list.
-    /// Complexity: O(n)
-    /// </summary>
-    /// <param name="item">The item to be removed.</param>
-    /// <returns>True if removed, false otherwise.</returns>
-    public bool Remove(T item)
-    {
-        LinkedListNode<T> previous = null;
-        var current = this._head;
-        
         while (current != null)
         {
             if (current.Value.Equals(item))
             {
-                // If it is not the head
-                if (previous != null)
-                {
-                    previous.Next = current.Next;
-                    
-                    // If the current node is the tail node, sets new tail as previous.
-                    if (current.Next == null)
-                        this._tail = previous;
-
-                    this.Count--;
-                }
-                else
-                {
-                    RemoveHead();
-                }
-
-                return true;
+                return current;
             }
-            
-            previous = current;
+
             current = current.Next;
         }
+
+        return null;
+    }
+    
+    /// <summary>
+    /// Removes an item.
+    /// Complexity: O(1)
+    /// </summary>
+    /// <returns>True if removed, false otherwise.</returns>
+    public bool Remove(T item)
+    {
+        var itemFound = this.Find(item);
+        if (itemFound == null)
+            return false;
         
-        return false;
+        var previous = itemFound.Previous;
+        var next = itemFound.Next;
+
+        // If previous is null, we're removing the head node.
+        if (previous == null)
+        {
+            this._head = next;
+            
+            if (this._head != null)
+                this._head.Previous = null;
+        }
+        else
+        {
+            previous.Next = next;
+        }
+
+        // If next is null, we're removing the tail.
+        if (next == null)
+        {
+            this._tail = previous;
+            
+            if (this._tail != null)
+                this._tail.Next = null;
+        }
+        else
+        {
+            next.Previous = previous;
+        }
+        
+        this.Count--;
+
+        return true;
     }
     
     /// <summary>
@@ -288,32 +262,12 @@ public class LinkedList<T> : ICollection<T>
     }
 
     /// <summary>
-    /// Enumerates over the linked list values.
+    /// Enumerates over the doubly linked list values.
     /// Complexity: O(n)
     /// </summary>
     /// <returns>The element in the collection at the current position of the enumerator.</returns>
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
-    }
-    
-    /// <summary>
-    /// Converts the list as string.
-    /// Method used for debugging purposes only.
-    /// Complexity: O(n²) because of +=.
-    /// </summary>
-    public string ConvertToString()
-    {
-        var listAsString = string.Empty;
-        
-        var current = this._head;
-        while (current != null)
-        {
-            listAsString += current.Value + " -> ";
-            current = current.Next;
-        }
-
-        listAsString +="NULL";
-        return listAsString;
     }
 }
